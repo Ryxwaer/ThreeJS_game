@@ -22,12 +22,18 @@ decrementBtn.addEventListener("click", () => {
 settingsBtn.addEventListener("click", () => {
   menuBar.classList.toggle("menu-bar-active");
 });
+
 var startTime = Date.now();
-setInterval(function () {
-  var elapsedTime = Date.now() - startTime;
-  document.getElementById("time").innerHTML =
-    " Time elapsed: " + (elapsedTime / 1000).toFixed(1) + "s";
-}, 100);
+let intervalID = 0;
+
+function startTimeCount() {
+  startTime = Date.now();
+  intervalID = setInterval(function () {
+    var elapsedTime = Date.now() - startTime;
+    document.getElementById("time").innerHTML =
+      " Time elapsed: " + (elapsedTime / 1000).toFixed(1) + "s";
+  }, 100);
+}
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(
@@ -87,7 +93,11 @@ closePopup.onclick = function () {
   popup.style.display = "none";
   changeScoreBy(-1 * score);
   dificultyLevel = 0;
+  document.getElementById("total-spawned").innerHTML = dificultyLevel;
   createNewCube();
+  clearInterval(intervalID);
+  document.getElementById("time").innerHTML =
+      " Time elapsed: 0.0s";
 };
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -164,13 +174,14 @@ function createNewCube() {
   cube.scale.x = 1;
   cube.scale.y = 1;
   cube.scale.z = 1;
-  cube.material.color.set(getRandomBrightColor()); //set random bright color
+  cube.material.color.set(getRandomBrightColor());
   cube.position.x = Math.random() * 4 - 2;
-  cube.position.y = Math.random() * 4 - 2;
-  cube.position.z = Math.random() * 4 - 2;
+  cube.position.y = Math.random() * 3 - 1.5;
+  cube.position.z = Math.random() * 2;
   updateCoordinatesUI();
   
   if (dificultyLevel == 1) {
+    startTimeCount();
     $("#title").hide();
   }
 }
@@ -184,10 +195,22 @@ function changeScoreBy(value) {
   document.getElementById("score").innerHTML = "Score: " + score;
 }
 
-// gradually decrease cube size
-var scaleInterval = setInterval(function () {
+function getRandomBrightColor() {
+  var index = Math.floor(Math.random() * brightColors.length);
+  return brightColors[index];
+}
+
+// infinite loop
+var animate = function () {
+  requestAnimationFrame(animate);
+
+  var value = 0.01 + dificultyLevel / 1000;
+
+  cube.rotation.x += value;
+  cube.rotation.y += value;
+
   if (cube.scale.x > 0.01) {
-    var value = 0.01 + dificultyLevel / 1000;
+    value /= 4;
     cube.scale.x -= value;
     cube.scale.y -= value;
     cube.scale.z -= value;
@@ -195,19 +218,6 @@ var scaleInterval = setInterval(function () {
     cubeMissed();
     createNewCube();
   }
-}, 100);
-
-// function to generate random bright color
-function getRandomBrightColor() {
-  var index = Math.floor(Math.random() * brightColors.length);
-  return brightColors[index];
-}
-
-var animate = function () {
-  requestAnimationFrame(animate);
-
-  cube.rotation.x += 0.01 + dificultyLevel / 1000;
-  cube.rotation.y += 0.01 + dificultyLevel / 1000;
 
   renderer.render(scene, camera);
 };
