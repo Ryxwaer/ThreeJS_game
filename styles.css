@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+@keyframes flash {
+  0% {
+    background-color: #fff;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  100% {
+    background-color: #fff;
+  }
+}
+body.flash {
+  animation: flash 0.2s linear;
+}
+#upper-bar {
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+#settings-btn {
+  background-color: transparent;
+  background-image: url("./gearicon.png"); /* path to your local image */
+  background-repeat: no-repeat; /* don't repeat the image */
+  background-size: contain; /* scale the image to fit the button */
+  width: 25px; /* set the width of the button */
+  height: 25px; /* set the height of the button */
+  cursor: pointer; /* make the cursor change to a pointer when hovered over */
+  border: none;
+  transition: 0.5s;
+}
+#settings-btn:hover {
+  transform: rotate(360deg);
+}
+#time {
+  margin-left: 20px;
+}
+#score {
+  margin-right: 20px;
+}
+#menu-bar {
+  position: fixed;
+  top: 0;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  background-color: #333;
+  transition: left 0.3s ease-in-out;
+}
+#menu-bar li {
+  list-style: none;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 5px;
+}
+#menu-bar.menu-bar-active {
+  margin-top: 50px;
+  left: 0;
+}
+#miss-penalty-setting {
+  display: flex;
+  align-items: center;
+}
+#miss-penalty-input {
+  width: 50px;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  font-size: 18px;
+  padding: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+#miss-penalty-input::-webkit-inner-spin-button,
+#miss-penalty-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.number-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.increment,
+.decrement {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  padding: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+.increment {
+  right: 0;
+}
+.decrement {
+  left: 0;
+}
+.increment:hover,
+.decrement:hover {
+  background-color: #ccc;
+  border-radius: 20%;
+}
+#title {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 2em;
+  color: #ccc;
+  text-align: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translate(-50%) scale(1.2) rotate(10deg);
+  }
+  50% {
+    transform: translate(-50%) scale(1) rotate(0deg);
+  }
+  75% {
+    transform: translate(-50%) scale(1.2) rotate(-10deg);
+  }
+  100% {
+    transform: translate(-50%) scale(1) rotate(0deg);
+  }
+}
+#popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+#popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+#close-popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+#author {
+  position: absolute;
+  bottom: 80px;
+  color: lightgray;
+  text-shadow: 2px 2px 2px gray;
+}

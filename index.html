@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r119/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="styles.css">
+  </head>
+  <body style="background-color: white">
+    <div id="menu-bar">
+      <ul>
+        <li>
+          <div id="miss-penalty-setting">
+            <label for="miss-penalty-input">Miss Penalty:</label>
+            <div class="number-input">
+              <input
+                type="number"
+                id="miss-penalty-input"
+                min="1"
+                max="10"
+                value="5"
+              />
+              <span class="increment">+</span>
+              <span class="decrement">-</span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="menu-item">
+            <label for="coordinates">Coordinates:</label>
+            <div id="coordinates">
+              <p>X: <span id="x-coord"></span></p>
+              <p>Y: <span id="y-coord"></span></p>
+              <p>Z: <span id="z-coord"></span></p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="menu-item">
+            <label for="coordinates">Dificulty modifier:</label>
+            <span id="total-spawned">0</span>
+          </div>
+        </li>
+        <li>
+          <label for="free-play-checkbox">Free play</label>
+          <input
+            type="checkbox"
+            id="free-play-checkbox"
+            name="free-play-checkbox"
+            value="free-play-checkbox"
+            onclick="toggleFreePlay()"
+          />
+        </li>
+        <div id="author">Ryxwaer.com</div>
+      </ul>
+    </div>
+    <div id="upper-bar">
+      <button id="settings-btn"></button>
+      <div id="time"></div>
+      <div id="score">Score: 0</div>
+    </div>
+    <div id="title">Click the Cube!</div>
+    <div id="popup">
+      <div id="popup-content">
+        <span id="close-popup">&times;</span>
+        <h2>Score</h2>
+        <p id="score-display"></p>
+        <h2>Time elapsed</h2>
+        <p id="time-display"></p>
+        <h2>Enter your name</h2>
+        <input type="text" id="player-name" placeholder="Your name here" />
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
