@@ -197,7 +197,7 @@ function getRandomBrightColor() {
 }
 
 // infinite loop
-var animate = function () {
+const animate = function () {
   requestAnimationFrame(animate);
 
   let value = 0.01 + dificultyLevel / 1000;
