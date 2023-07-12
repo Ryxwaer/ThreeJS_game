@@ -5,7 +5,7 @@ const missPenaltyInput = document.getElementById("miss-penalty-input");
 const incrementBtn = document.querySelector(".increment");
 const decrementBtn = document.querySelector(".decrement");
 
-var missPenalty = 5;
+let missPenalty = 5;
 
 missPenaltyInput.addEventListener("change", () => {
   missPenalty = missPenaltyInput.value;
@@ -23,30 +23,30 @@ settingsBtn.addEventListener("click", () => {
   menuBar.classList.toggle("menu-bar-active");
 });
 
-var startTime = Date.now();
+let startTime = Date.now();
 let intervalID = 0;
 
 function startTimeCount() {
   startTime = Date.now();
   intervalID = setInterval(function () {
-    var elapsedTime = Date.now() - startTime;
+    const elapsedTime = Date.now() - startTime;
     document.getElementById("time").innerHTML =
       " Time elapsed: " + (elapsedTime / 1000).toFixed(1) + "s";
   }, 100);
 }
 
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
 );
 
-var score = 0;
-var dificultyLevel = 0;
+let score = 0;
+let dificultyLevel = 0;
 
-var brightColors = [
+const brightColors = [
   "#F44336",
   "#E91E63",
   "#9C27B0",
@@ -65,21 +65,21 @@ var brightColors = [
   "#FF5722",
 ];
 
-var geometry = new THREE.BoxGeometry(1, 1, 1);
-var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-var cube = new THREE.Mesh(geometry, material);
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const cube = new THREE.Mesh(geometry, material);
 
-var renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer();
 
 // create a new raycaster
-var raycaster = new THREE.Raycaster();
+const raycaster = new THREE.Raycaster();
 
 // Get the elements
-var popup = document.getElementById("popup");
-var closePopup = document.getElementById("close-popup");
-var playerName = document.getElementById("player-name");
+const popup = document.getElementById("popup");
+const closePopup = document.getElementById("close-popup");
+const playerName = document.getElementById("player-name");
 
-var freePlay = false;
+let freePlay = false;
 
 function toggleFreePlay() {
   freePlay = !freePlay;
@@ -113,9 +113,9 @@ camera.position.z = 5;
 document.addEventListener("mousedown", onDocumentMouseDown, false);
 
 function onDocumentMouseDown(event) {
-  var upperBar = document.getElementById("upper-bar");
-  var upperBarHeight = upperBar.getBoundingClientRect().height;
-  var menuBar = document.getElementById("menu-bar").getBoundingClientRect();
+  const upperBar = document.getElementById("upper-bar");
+  const upperBarHeight = upperBar.getBoundingClientRect().height;
+  const menuBar = document.getElementById("menu-bar").getBoundingClientRect();
 
   // check if mouse is over UI
   if (
@@ -125,7 +125,7 @@ function onDocumentMouseDown(event) {
     return;
   }
 
-  var mouse = new THREE.Vector3();
+  const mouse = new THREE.Vector3();
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -((event.clientY - upperBarHeight) / window.innerHeight) * 2 + 1;
   mouse.z = 0.5;
@@ -140,7 +140,7 @@ function onDocumentMouseDown(event) {
   );
 
   // check for intersections
-  var intersects = raycaster.intersectObject(cube);
+  const intersects = raycaster.intersectObject(cube);
 
   if (intersects.length > 0) {
     cubeClicked();
@@ -161,10 +161,10 @@ function cubeMissed() {
     changeScoreBy(-1 * missPenalty);
   } else if (dificultyLevel > 0 && popup.style.display != "block") {
     // Show player score
-    var scoreDisplay = document.getElementById("score-display");
+    const scoreDisplay = document.getElementById("score-display");
     scoreDisplay.innerHTML = score;
-    var timeDisplay = document.getElementById("time-display");
-    var elapsedTime = Date.now() - startTime;
+    const timeDisplay = document.getElementById("time-display");
+    const elapsedTime = Date.now() - startTime;
     timeDisplay.innerHTML = (elapsedTime / 1000).toFixed(1) + "s";
     popup.style.display = "block";
   }
@@ -187,16 +187,12 @@ function createNewCube() {
 }
 
 function changeScoreBy(value) {
-  if (score + value < 0) {
-    score = 0;
-  } else {
-    score += value;
-  }
+  score = Math.max(score + value, 0); // prevent going into negative numbers
   document.getElementById("score").innerHTML = "Score: " + score;
 }
 
 function getRandomBrightColor() {
-  var index = Math.floor(Math.random() * brightColors.length);
+  const index = Math.floor(Math.random() * brightColors.length);
   return brightColors[index];
 }
 
@@ -204,7 +200,7 @@ function getRandomBrightColor() {
 var animate = function () {
   requestAnimationFrame(animate);
 
-  var value = 0.01 + dificultyLevel / 1000;
+  let value = 0.01 + dificultyLevel / 1000;
 
   cube.rotation.x += value;
   cube.rotation.y += value;
