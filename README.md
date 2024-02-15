@@ -2,6 +2,8 @@
 
 This game is a 3D cube clicking game where the player's goal is to click on a randomly moving cube as many times as possible.
 
+* The game website: https://cube.ryxwaer.com/
+
 The game is built using JavaScript, HTML, and CSS. The player interacts with the game through a menu bar that is located at the top of the screen. The menu bar contains the following elements:
 
 - Score: This field displays the player's current score. The score increases by 1 point for every successful click on the cube, and decreases by a set penalty value for every miss.
